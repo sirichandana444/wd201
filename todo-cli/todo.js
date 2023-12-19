@@ -11,7 +11,7 @@ const todoList = () => {
 
   const overdue = () => {
     const today = new Date().toISOString().split("T")[0];
-    return all.filter((item) => !item.completed && item.dueDate < today);
+    return all.filter((item) => !item.completed && item.dueDate <= today);
   };
 
   const dueToday = () => {
@@ -57,8 +57,11 @@ todos.add({
   dueDate: "2023-12-18",
   completed: false,
 });
-todos.add({ title: "Pay rent", dueDate: "2023-12-18", completed: true });
-todos.add({ title: "Service Vehicle", dueDate: "2023-12-18", completed: false });
+todos.add({
+  title: "Service Vehicle",
+  dueDate: "2023-12-18",
+  completed: false,
+});
 todos.add({ title: "File taxes", dueDate: "2023-12-20", completed: false });
 todos.add({ title: "Pay electric bill", dueDate: "2023-12-20", completed: false });
 
