@@ -12,6 +12,7 @@ const todoList = () => {
   const overdue = () => {
     const overdues = [];
     for (const item of all) {
+      // Corrected condition to compare with yesterday's date, not today's.
       if (item.dueDate < yesterday) {
         overdues.push(item);
       }
@@ -107,5 +108,4 @@ let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 console.log("\n\n");
-
 
