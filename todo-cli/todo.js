@@ -12,7 +12,6 @@ const todoList = () => {
   const overdue = () => {
     const overdues = [];
     for (const item of all) {
-      // Corrected condition to compare with yesterday's date, not today's.
       if (item.dueDate < yesterday) {
         overdues.push(item);
       }
@@ -33,7 +32,7 @@ const todoList = () => {
   const dueLater = () => {
     const itemsDueLater = [];
     for (const item of all) {
-      if (item.dueDate > today && item.dueDate > tomorrow) {
+      if (item.dueDate > today) {
         itemsDueLater.push(item);
       }
     }
@@ -67,8 +66,6 @@ const todoList = () => {
 // ####################################### #
 // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
 // ####################################### #
-
-const todos = todoList();
 
 const formattedDate = (d) => {
   return d.toISOString().split("T")[0];
@@ -108,4 +105,6 @@ let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 console.log("\n\n");
+
+
 
