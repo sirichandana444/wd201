@@ -33,7 +33,9 @@ const todoList = () => {
     list.forEach((item) => {
       const checkbox = item.completed ? "[x]" : "[ ]";
       const title = item.title;
-      const dueDate = item.dueDate ? ` ${item.dueDate}` : "";
+      const dueDate = item.dueDate
+        ? ` ${item.dueDate === new Date().toISOString().split("T")[0] ? '' : item.dueDate}`
+        : "";
       displayableList += `${checkbox} ${title}${dueDate}\n`;
     });
     return displayableList;
@@ -50,21 +52,50 @@ const todoList = () => {
   };
 };
 
+// ####################################### #
+// DO NOT CHANGE ANYTHING BELOW THIS LINE. #
+// ####################################### #
+
 const todos = todoList();
 
+const formattedDate = (d) => {
+  return d.toISOString().split("T")[0];
+};
+
+var dateToday = new Date();
+const today = formattedDate(dateToday);
+const yesterday = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() - 1))
+);
+const tomorrow = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() + 1))
+);
+
 todos.add({
-  title: "Submit assignment",
-  dueDate: "2023-12-18",
+  title: 'Submit assignment',
+  dueDate: yesterday,
   completed: false,
 });
 todos.add({
-  title: "Service Vehicle",
-  dueDate: "2023-12-18",
+  title: 'Pay rent',
+  dueDate: today,
+  completed: true,
+});
+todos.add({
+  title: 'Service Vehicle',
+  dueDate: today,
   completed: false,
 });
-todos.add({ title: "Pay rent", dueDate: "2023-12-18", completed: false });
-todos.add({ title: "File taxes", dueDate: "2023-12-20", completed: false });
-todos.add({ title: "Pay electric bill", dueDate: "2023-12-20", completed: false });
+todos.add({
+  title: 'File taxes',
+  dueDate: tomorrow,
+  completed: false,
+});
+todos.add({
+  title: 'Pay electric bill',
+  dueDate: tomorrow,
+  completed: false,
+});
 
 console.log("My Todo-list\n");
 
