@@ -1,52 +1,83 @@
-const all = [];
+const todoList = () => {
+  all = [];
 
-function add(todo) {
- all.push(todo);
-}
+  const add = (todoItem) => {
+    all.push(todoItem);
+  };
 
-function overdue() {
- const dateToday = new Date();
- return all.filter(todo => new Date(todo.dueDate) < dateToday);
-}
+  const markAsComplete = (index) => {
+    all[index].completed = true;
+  };
 
-function dueToday() {
- const dateToday = new Date();
- const today = dateToday.toISOString().split("T")[0];
- return all.filter(todo => todo.dueDate === today);
-}
+  const overdue = () => {
+    const today = new Date().toISOString().split("T")[0];
+    return all.filter((item) => !item.completed && item.dueDate < today);
+  };
 
-function dueLater() {
- const dateToday = new Date();
- return all.filter(todo => new Date(todo.dueDate) > dateToday);
-}
+  const dueToday = () => {
+    const today = new Date().toISOString().split("T")[0];
+    return all.filter(
+      (item) => !item.completed && item.dueDate === today
+    );
+  };
 
-function toDisplayableList(laterdues) {
- let result = '';
- laterdues.forEach(todo => {
-    result += `[ ] ${todo.title} ${todo.dueDate}\n`;
- });
- return result;
-}
+  const dueLater = () => {
+    const today = new Date().toISOString().split("T")[0];
+    return all.filter(
+      (item) => !item.completed && item.dueDate > today
+    );
+  };
 
-add({ title: 'Buy groceries', dueDate: '2022-05-15' });
-add({ title: 'File taxes', dueDate: '2022-04-15' });
-add({ title: 'Pay electricity bill', dueDate: '2022-03-25' });
-add({ title: 'Pick up dry cleaning', dueDate: '2022-04-15' });
-add({ title: 'Attend team meeting', dueDate: '2022-05-15' });
-add({ title: 'Clean house', dueDate: '2022-06-15' });
+  const toDisplayableList = (list) => {
+    let displayableList = "";
+    list.forEach((item) => {
+      const checkbox = item.completed ? "[x]" : "[ ]";
+      const title = item.title;
+      const dueDate = item.dueDate ? ` ${item.dueDate}` : "";
+      displayableList += `${checkbox} ${title}${dueDate}\n`;
+    });
+    return displayableList;
+  };
 
-const overdueTodos = overdue();
-const dueTodayTodos = dueToday();
-const dueLaterTodos = dueLater();
+  return {
+    all,
+    add,
+    markAsComplete,
+    overdue,
+    dueToday,
+    dueLater,
+    toDisplayableList,
+  };
+};
 
-console.log('My Todo-list');
+const todos = todoList();
 
-console.log('Overdue');
-console.log(overdueTodos);
+todos.add({
+  title: "Submit assignment",
+  dueDate: "2023-12-18",
+  completed: false,
+});
+todos.add({ title: "Pay rent", dueDate: "2023-12-18", completed: true });
+todos.add({ title: "Service Vehicle", dueDate: "2023-12-18", completed: false });
+todos.add({ title: "File taxes", dueDate: "2023-12-20", completed: false });
+todos.add({ title: "Pay electric bill", dueDate: "2023-12-20", completed: false });
 
-console.log('Due Today');
-console.log(dueTodayTodos);
+console.log("My Todo-list\n");
 
-console.log('Due Later');
-console.log(toDisplayableList(dueLaterTodos));
+console.log("Overdue");
+var overdues = todos.overdue();
+var formattedOverdues = todos.toDisplayableList(overdues);
+console.log(formattedOverdues);
+console.log("\n");
 
+console.log("Due Today");
+let itemsDueToday = todos.dueToday();
+let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday);
+console.log(formattedItemsDueToday);
+console.log("\n");
+
+console.log("Due Later");
+let itemsDueLater = todos.dueLater();
+let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
+console.log(formattedItemsDueLater);
+console.log("\n\n");
