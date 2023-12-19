@@ -62,6 +62,7 @@ todos.add({
   dueDate: "2023-12-18",
   completed: false,
 });
+todos.add({ title: "Pay rent", dueDate: "2023-12-18", completed: false });
 todos.add({ title: "File taxes", dueDate: "2023-12-20", completed: false });
 todos.add({ title: "Pay electric bill", dueDate: "2023-12-20", completed: false });
 
