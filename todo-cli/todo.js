@@ -1,17 +1,18 @@
 const todoList = () => {
-  all = [];
+  // Define todos variable before using it.
+  const todos = [];
 
   const add = (todoItem) => {
-    all.push(todoItem);
+    todos.push(todoItem);
   };
 
   const markAsComplete = (index) => {
-    all[index].completed = true;
+    todos[index].completed = true;
   };
 
   const overdue = () => {
     const overdues = [];
-    for (const item of all) {
+    for (const item of todos) {
       if (item.dueDate < yesterday) {
         overdues.push(item);
       }
@@ -21,7 +22,7 @@ const todoList = () => {
 
   const dueToday = () => {
     const itemsDueToday = [];
-    for (const item of all) {
+    for (const item of todos) {
       if (item.dueDate === today) {
         itemsDueToday.push(item);
       }
@@ -31,7 +32,7 @@ const todoList = () => {
 
   const dueLater = () => {
     const itemsDueLater = [];
-    for (const item of all) {
+    for (const item of todos) {
       if (item.dueDate > today) {
         itemsDueLater.push(item);
       }
@@ -53,7 +54,7 @@ const todoList = () => {
   };
 
   return {
-    all,
+    all: todos,
     add,
     markAsComplete,
     overdue,
@@ -105,6 +106,4 @@ let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 console.log("\n\n");
-
-
 
