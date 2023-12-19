@@ -23,7 +23,7 @@ function dueLater() {
 function toDisplayableList(laterdues) {
  let result = '';
  laterdues.forEach(todo => {
-    result += `Title: ${todo.title}, Due Date: ${todo.dueDate}\n`;
+    result += `[ ] ${todo.title} ${todo.dueDate}\n`;
  });
  return result;
 }
@@ -39,12 +39,14 @@ const overdueTodos = overdue();
 const dueTodayTodos = dueToday();
 const dueLaterTodos = dueLater();
 
-console.log('Overdue todos:');
+console.log('My Todo-list');
+
+console.log('Overdue');
 console.log(overdueTodos);
 
-console.log('Due today todos:');
+console.log('Due Today');
 console.log(dueTodayTodos);
 
-console.log('Due later todos:');
+console.log('Due Later');
 console.log(toDisplayableList(dueLaterTodos));
 
