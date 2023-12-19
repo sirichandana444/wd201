@@ -68,6 +68,16 @@ const tomorrow = formattedDate(
   new Date(new Date().setDate(dateToday.getDate() + 1))
 );
 
+todos.add({
+  title: "Submit assignment",
+  dueDate: yesterday,
+  completed: false,
+});
+todos.add({ title: "Pay rent", dueDate: today, completed: true });
+todos.add({ title: "Service Vehicle", dueDate: today, completed: false });
+todos.add({ title: "File taxes", dueDate: tomorrow, completed: false });
+todos.add({ title: "Pay electric bill", dueDate: tomorrow, completed: false });
+
 console.log("My Todo-list\n");
 
 console.log("Overdue");
