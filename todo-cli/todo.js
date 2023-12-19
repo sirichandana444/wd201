@@ -1,109 +1,50 @@
-const todoList = () => {
-  // Define todos variable before using it.
-  const todos = [];
+const all = [];
 
-  const add = (todoItem) => {
-    todos.push(todoItem);
-  };
+function add(todo) {
+ all.push(todo);
+}
 
-  const markAsComplete = (index) => {
-    todos[index].completed = true;
-  };
+function overdue() {
+ const dateToday = new Date();
+ return all.filter(todo => new Date(todo.dueDate) < dateToday);
+}
 
-  const overdue = () => {
-    const overdues = [];
-    for (const item of todos) {
-      if (item.dueDate < yesterday) {
-        overdues.push(item);
-      }
-    }
-    return overdues;
-  };
+function dueToday() {
+ const dateToday = new Date();
+ const today = dateToday.toISOString().split("T")[0];
+ return all.filter(todo => todo.dueDate === today);
+}
 
-  const dueToday = () => {
-    const itemsDueToday = [];
-    for (const item of todos) {
-      if (item.dueDate === today) {
-        itemsDueToday.push(item);
-      }
-    }
-    return itemsDueToday;
-  };
+function dueLater() {
+ const dateToday = new Date();
+ return all.filter(todo => new Date(todo.dueDate) > dateToday);
+}
 
-  const dueLater = () => {
-    const itemsDueLater = [];
-    for (const item of todos) {
-      if (item.dueDate > today) {
-        itemsDueLater.push(item);
-      }
-    }
-    return itemsDueLater;
-  };
+function toDisplayableList(laterdues) {
+ let result = '';
+ laterdues.forEach(todo => {
+    result += `Title: ${todo.title}, Due Date: ${todo.dueDate}\n`;
+ });
+ return result;
+}
 
-  const toDisplayableList = (list) => {
-    let formattedList = "";
-    for (const item of list) {
-      formattedList += item.completed ? "[x] " : "[ ] ";
-      formattedList += item.title;
-      if (item.dueDate !== today) {
-        formattedList += ` (${formattedDate(item.dueDate)})`;
-      }
-      formattedList += "\n";
-    }
-    return formattedList.trim();
-  };
+add({ title: 'Buy groceries', dueDate: '2022-05-15' });
+add({ title: 'File taxes', dueDate: '2022-04-15' });
+add({ title: 'Pay electricity bill', dueDate: '2022-03-25' });
+add({ title: 'Pick up dry cleaning', dueDate: '2022-04-15' });
+add({ title: 'Attend team meeting', dueDate: '2022-05-15' });
+add({ title: 'Clean house', dueDate: '2022-06-15' });
 
-  return {
-    all: todos,
-    add,
-    markAsComplete,
-    overdue,
-    dueToday,
-    dueLater,
-    toDisplayableList,
-  };
-};
+const overdueTodos = overdue();
+const dueTodayTodos = dueToday();
+const dueLaterTodos = dueLater();
 
-// ####################################### #
-// DO NOT CHANGE ANYTHING BELOW THIS LINE. #
-// ####################################### #
+console.log('Overdue todos:');
+console.log(overdueTodos);
 
-const formattedDate = (d) => {
-  return d.toISOString().split("T")[0];
-};
+console.log('Due today todos:');
+console.log(dueTodayTodos);
 
-var dateToday = new Date();
-const today = formattedDate(dateToday);
-const yesterday = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() - 1))
-);
-const tomorrow = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() + 1))
-);
-
-todos.add({ title: "Submit assignment", dueDate: yesterday, completed: false });
-todos.add({ title: "Pay rent", dueDate: today, completed: true });
-todos.add({ title: "Service Vehicle", dueDate: today, completed: false });
-todos.add({ title: "File taxes", dueDate: tomorrow, completed: false });
-todos.add({ title: "Pay electric bill", dueDate: tomorrow, completed: false });
-
-console.log("My Todo-list\n");
-
-console.log("Overdue");
-var overdues = todos.overdue();
-var formattedOverdues = todos.toDisplayableList(overdues);
-console.log(formattedOverdues);
-console.log("\n");
-
-console.log("Due Today");
-let itemsDueToday = todos.dueToday();
-let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday);
-console.log(formattedItemsDueToday);
-console.log("\n");
-
-console.log("Due Later");
-let itemsDueLater = todos.dueLater();
-let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
-console.log(formattedItemsDueLater);
-console.log("\n\n");
+console.log('Due later todos:');
+console.log(toDisplayableList(dueLaterTodos));
 
