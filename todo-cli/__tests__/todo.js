@@ -19,7 +19,7 @@ describe("todoList", () => {
     add({
       title: "todos",
       completed: false,
-      dueDate: new Date(thisday.getTime() - 1 * oneD).toLocaleDateString(
+      dueDate: new Date(tooday.getTime() - 1 * oneDaaaay).toLocaleDateString(
         "en-CA",
       ),
     });
