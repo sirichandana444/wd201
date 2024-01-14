@@ -1,32 +1,32 @@
-const todoList = () => {
-  const all = [];
+const createTodoList = () => {
+  const todos = [];
 
-  const add = (todoItem) => {
-    all.push(todoItem);
+  const addItem = (todoItem) => {
+    todos.push(todoItem);
   };
 
-  const markAsComplete = (index) => {
-    all[index].completed = true;
+  const markItemAsComplete = (index) => {
+    todos[index].completed = true;
   };
 
-  const overdue = () => {
+  const getOverdueItems = () => {
     const today = new Date().toISOString().split("T")[0];
-    return all.filter((item) => !item.completed && item.dueDate < today);
+    return todos.filter((item) => !item.completed && item.dueDate < today);
   };
 
-  const dueToday = () => {
+  const getDueTodayItems = () => {
     const today = new Date().toISOString().split("T")[0];
-    return all.filter(
+    return todos.filter(
       (item) => (item.dueDate === today && !item.completed) || item.completed,
     );
   };
 
-  const dueLater = () => {
+  const getDueLaterItems = () => {
     const today = new Date().toISOString().split("T")[0];
-    return all.filter((item) => !item.completed && item.dueDate > today);
+    return todos.filter((item) => !item.completed && item.dueDate > today);
   };
 
-  const toDisplayableList = (list, includeDate) => {
+  const formatItemsForDisplay = (list, includeDate) => {
     return list
       .map((item) => {
         const checkbox = `[${item.completed ? "x" : " "}]`;
@@ -39,14 +39,13 @@ const todoList = () => {
   };
 
   return {
-    all,
-    add,
-    markAsComplete,
-    overdue,
-    dueToday,
-    dueLater,
-    toDisplayableList,
+    todos,
+    addItem,
+    markItemAsComplete,
+    getOverdueItems,
+    getDueTodayItems,
+    getDueLaterItems,
+    formatItemsForDisplay,
   };
 };
 
-module.exports = todoList;
