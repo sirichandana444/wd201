@@ -1,15 +1,17 @@
-var commandArgs = require("minimist")(process.argv.slice(2));
-const database = require("./models/index");
+/* eslint-disable no-undef */
+// addTodo.js
+var argv = require("minimist")(process.argv.slice(2));
+const db = require("./models/index");
 
-const addTodo = async (params) => {
+const createTodo = async (params) => {
   try {
-    await database.Todo.addTask(params);
+    await db.Todo.addTask(params);
   } catch (error) {
     console.error(error);
   }
 };
 
-const calculateDueDate = (days) => {
+const getJSDate = (days) => {
   if (!Number.isInteger(days)) {
     throw new Error("Need to pass an integer as days");
   }
@@ -17,15 +19,13 @@ const calculateDueDate = (days) => {
   const oneDay = 60 * 60 * 24 * 1000;
   return new Date(today.getTime() + days * oneDay);
 };
-
 (async () => {
-  const { title, dueInDays } = commandArgs;
+  const { title, dueInDays } = argv;
   if (!title || dueInDays === undefined) {
     throw new Error(
       'title and dueInDays are required. \nSample command: node addTodo.js --title="Buy milk" --dueInDays=-2 ',
     );
   }
-  await addTodo({ title, dueDate: calculateDueDate(dueInDays), completed: false });
-  await database.Todo.showList();
+  await createTodo({ title, dueDate: getJSDate(dueInDays), completed: false });
+  await db.Todo.showList();
 })();
-
