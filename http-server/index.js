@@ -10,25 +10,25 @@ let projectContent = "";
 let regContent = "";
 
 
-fs.readFile("home.html", (err, homeData) => {
+fs.readFile("home.html", (err, home) => {
   if (err) {
     throw err;
   }
-  homeContent = homeData;
+  homeContent = home;
 });
 
-fs.readFile("project.html", (err, projectData) => {
+fs.readFile("project.html", (err, project) => {
   if (err) {
     throw err;
   }
-  projectContent = projectData;
+  projectContent = project;
 });
 
-fs.readFile("registration.html", (err, regData) => {
+fs.readFile("registration.html", (err, reg) => {
   if (err) {
     throw err;
   }
-  regContent = regData;
+  regContent = reg;
 });
 
 http
@@ -51,4 +51,3 @@ http
     }
   })
   .listen(args.port);
-
